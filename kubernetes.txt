@@ -1,0 +1,64 @@
+///////////// CREATING A CONTAINER IN REPOSITORY ////////////////
+
+docker build -t kub-first-app .                       -> creating a docker app
+docker tag kub-first-app iswarzessta/kub-first-app    -> This is the Docker command used to tag an image
+docker push iswarzessta/kub-first-app                 -> push the doker ap to repository
+
+
+
+
+minikube start --driver=docker                        -> to start the minikube
+kubectl create deployment first-app --image=iswarzessta/kub-first-app  -> this will create deployment in the k8s cluster
+kubectl get deployments                               -> to get totall deployments
+kubectl get pods                                      -> to see how many pods are there in the cluster
+
+minikube dashboard                                    -> use to see the dashboard
+
+///////////// Service for exposing its ip to outside world /////////////////
+
+
+kubectl expose deployment first-app --type=LoadBalancer --port=8080  ->This will expose the port for outside pods
+kubectl get services                                   -> to get all running services
+minikube service first-app                             -> minikube specific to run the service
+kubectl scale deployment/first-app --replicas=3        -> this will create 3 pods of the same instance so if one crash anoth one is running
+
+
+
+kubectl set image deployment/first-app kub-first-app=iswarzessta/kub-first-app:2  -> update a app from docker hub
+kubectl rollout status deployment/first-app             -> to see update status
+
+/////////// What if There is some error while updating ///////////
+
+kubectl rollout status deployment/first-app             -> to see update status
+kubectl rollout undo deployment/first-app               -> this will undo deployment of the new update
+
+
+////////////// DELETE ////////////////
+
+kubectl delete service first-app                        -> Used to delete Service
+kubectl delete deployment first-app                     -> Used to delete deployment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

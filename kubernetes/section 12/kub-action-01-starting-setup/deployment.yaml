@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment #purpose for using this file here we can define
+metadata:        #a collection of key value pairs that describe the object(like name of file). 
+  name: second-app-deployment       #name is a unique identifier of the deployment
+spec:            #the main part where we specify how our application will run.
+  replicas: 1    #number of pods to create  in response to an incoming request.
+  selector:
+    matchLabels: 
+      app: second-app   #label select
+      tier: backend
+  template:      #template defines what kind of pod should be created when the deployment creates new pods
+    metadata:
+      labels:
+        app: second-app
+        tier: backend
+    spec:
+      containers:
+        - name: second-node  #This define a single container 
+          image: iswarzessta/kub-first-app:2                   #image is the container image to use
+          # ports:                          #ports are used
